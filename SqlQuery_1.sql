@@ -7,3 +7,30 @@ CREATE TABLE Izdavac (
 Ime VARCHAR(30) PRIMARY KEY,
 IzdavacUrl VARCHAR(14),
 Adresa VARCHAR(13))
+
+CREATE TABLE Skladiste (
+IDSkladiste INT PRIMARY KEY,
+Adresa VARCHAR(13))
+
+CREATE TABLE Kupac (
+IDKupca INT PRIMARY KEY,
+Adresa VARCHAR(13),
+BrojMobitela VARCHAR(15),
+Email VARCHAR(15),
+Ime VARCHAR(30))
+
+CREATE TABLE Kosarica (
+IDKosarice INT PRIMARY KEY,
+IDKupca INT)
+
+CREATE TABLE Knjiga (
+ISBN INT PRIMARY KEY,
+Ime VARCHAR(30),
+Godina INT,
+ImeIzdavaca VARCHAR(30),
+ImeAutora VARCHAR(30),
+IDSkladista INT)
+
+CREATE TABLE SeNalazi(
+IDKosarice INT,
+ISBN INT)
