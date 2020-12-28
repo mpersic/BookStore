@@ -1,11 +1,13 @@
 ﻿CREATE TABLE Autor (
-    Ime VARCHAR(30) PRIMARY KEY,
+    ID INT PRIMARY KEY,
+    Ime VARCHAR(30),
     AutorUrl VARCHAR(14),
     Adresa VARCHAR(13)
 )
 
 CREATE TABLE Izdavac (
-    Ime VARCHAR(30) PRIMARY KEY,
+    ID INT PRIMARY KEY,
+    Ime VARCHAR(30),
     IzdavacUrl VARCHAR(14),
     Adresa VARCHAR(13)
 )
@@ -31,12 +33,11 @@ CREATE TABLE Kosarica (
 CREATE TABLE Knjiga (
     ISBN INT PRIMARY KEY,
     Ime VARCHAR(30),
+    BrojDostupnih INT,
     Godina INT,
-    ImeIzdavaca VARCHAR(30),
-    ImeAutora VARCHAR(30),
     IDSkladista INT FOREIGN KEY REFERENCES Skladiste(IDSkladiste),
-    IDIzdavaca VARCHAR(30) FOREIGN KEY REFERENCES Izdavac(Ime),
-    IDAutora VARCHAR(30) FOREIGN KEY REFERENCES Autor(Ime)
+    IDIzdavaca INT FOREIGN KEY REFERENCES Izdavac(ID),
+    IDAutora INT FOREIGN KEY REFERENCES Autor(ID)
 )
 
 CREATE TABLE SeNalazi(
