@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Objekti
 {
-    class Kosarica
+    public class Kosarica
     {
         private int idKosarice;
         private int idKupca;

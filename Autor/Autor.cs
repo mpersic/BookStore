@@ -16,6 +16,8 @@ namespace Objekti
             this.adresa = adresa;
         }
 
+        public Autor() { }
+
         public string Ime { get => ime; set => ime = value; }
         public string Url { get => url; set => url = value; }
         public string Adresa { get => adresa; set => adresa = value; }

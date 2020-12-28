@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Objekti
 {
-    class SeNalazi
+    public class SeNalazi
     {
         private int isbn;
         private int idKosarice;

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Objekti
 {
-    class Skladiste
+    public class Skladiste
     {
 
         private int iDSkladiste;

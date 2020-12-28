@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Objekti
 {
-    class Kupac
+    public class Kupac
     {
         private int idKupca;
         private string adresa;

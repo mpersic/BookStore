@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Objekti
 {
-    class Knjiga
+    public class Knjiga
     {
         //ISBN INT PRIMARY KEY,
         // Ime VARCHAR(30),

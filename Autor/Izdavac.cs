@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Objekti
 {
-    class Izdavac
+    public class Izdavac
     {
         private string ime;
         private string url;
