@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Autor
+namespace Objekti
 {
     public class Autor
     {
