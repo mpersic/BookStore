@@ -9,103 +9,113 @@ namespace BookStore
     {
         static void Main(string[] args)
         {
-
+            //initialValues();
             Posrednik p = new Posrednik();
 
-            while (true) {
+            //while (true) {
 
-                Console.WriteLine("Dobrodošli u online knjižaru!\n\nJeste li korisnik? (D/N)\n  Odaberite X za izlaz. (X)");
-                string isUser = Console.ReadLine();
+            //    Console.WriteLine("Dobrodošli u online knjižaru!\n\nJeste li korisnik? (D/N)\n  Odaberite X za izlaz. (X)");
+            //    string isUser = Console.ReadLine();
 
-                if (isUser == "D")
-                {
-                    Console.WriteLine("IdKupca: ");
-                    //učitavanje
-                    Console.WriteLine("\nAdresa: ");
-                    //
-                    Console.WriteLine("\nBroj mobitela: ");
-                    //
-                    Console.WriteLine("\nEmail: ");
-                    //
-                    Console.WriteLine("\nIme i prezime: ");
-                    //
-                    string izbornik = "Izbornik:\n     -Prikaži košaricu (K)\n     -Dodaj u košaricu (D)\n     -Filter (F)\n     -Odjava (O)\n     -Izađi iz programa (X)\n";
-                    string filter = "Filter:\n     -Ime knjige (K)\n     -Ime autora (A)\n     -Ime izdavača (I)\n     -Godina izadnja (G)\n     -Za višestruki izbor unesite kombinaciju slova (npr. K A I )\n     -Izađi iz filtera (X)\n";
+            //    if (isUser == "D")
+            //    {
+            //        Console.WriteLine("IdKupca: ");
+            //        //učitavanje
+            //        Console.WriteLine("\nAdresa: ");
+            //        //
+            //        Console.WriteLine("\nBroj mobitela: ");
+            //        //
+            //        Console.WriteLine("\nEmail: ");
+            //        //
+            //        Console.WriteLine("\nIme i prezime: ");
+            //        //
+            //        //ispis svih knjiga
 
-                    Console.WriteLine(izbornik);
-                    string response = Console.ReadLine();
-                    while (true)
-                    {
-                        if (response == "K")
-                        {
-                            Console.WriteLine("Košarica:\n");
-                            // Uzet knjige od kosarice i ispisati
-                            Console.WriteLine("Ukloni iz košarice (U)\n");
-                            string response = Console.ReadLine();
-                            if (response == "D")
-                            {
-                                // 
-                            }
-                            else {
-                                Console.WriteLine(izbornik);
-                            }
-                        }
+            //        string izbornik = "Izbornik:\n     -Prikaži košaricu (K)\n     -Filter (F)\n     -Odjava (O)\n     -Izađi iz programa (X)\n";
+            //        string filter = "Filter:\n     -Ime knjige (K)\n     -Ime autora (A)\n     -Ime izdavača (I)\n     -Godina izadnja (G)\n     -Za višestruki izbor unesite kombinaciju slova (npr. K A I )\n\n     -Dodaj u košaricu (D)\n     -Izađi iz filtera (X)\n";
 
-                        if (response == "U")
-                        {
-                            // Ukloni knjigu na rednom broju ispisa 
-                        }
+            //        Console.WriteLine(izbornik);
+            //        string response = Console.ReadLine();
+            //        while (true)
+            //        {   
+            //            if (response == "K")
+            //            {
+            //                Console.WriteLine("Košarica:\n");
+            //                // Uzet knjige od kosarice i ispisati
+            //                Console.WriteLine("Ukloni iz košarice (U)\n");
+            //                string response = Console.ReadLine();
+            //                if (response == "D")
+            //                {
+            //                    // 
+            //                }
+            //                else {
+            //                    Console.WriteLine(izbornik);
+            //                }
+            //            }
 
-                        if (response == "F")
-                        {
-                            Console.WriteLine(filter);
-                            response = Console.ReadLine();
+            //            if (response == "U")
+            //            {
+            //                // Ukloni knjigu na rednom broju ispisa 
+            //            }
 
-                            if (response.Contains(" K ")) 
-                            { 
-                                Console.WriteLine("Ime knjige: \n");
-                            }
+            //            if (response == "F")
+            //                while (true)
+            //                {
+            //                    {
+            //                        Console.WriteLine(filter);
+            //                        response = Console.ReadLine();
 
-                            if (response.Contains(" A "))
-                            {
-                                Console.WriteLine("Ima autora: \n");
-                            }
+            //                        if (response.Contains(" K "))
+            //                        {
+            //                            Console.WriteLine("Ime knjige: \n");
+            //                        }
 
-                            if (response.Contains("I"))
-                            {
-                                Console.WriteLine("Ime izdavača: \n");
-                            }
+            //                        if (response.Contains(" A "))
+            //                        {
+            //                            Console.WriteLine("Ima autora: \n");
+            //                        }
 
-                            if (response.Contains("G"))
-                            {
-                                Console.WriteLine("Godina izdanja: \n");
-                            }
+            //                        if (response.Contains("I"))
+            //                        {
+            //                            Console.WriteLine("Ime izdavača: \n");
+            //                        }
 
-                            if (response == "X") { break; }
-                        }
+            //                        if (response.Contains("G"))
+            //                        {
+            //                            Console.WriteLine("Godina izdanja: \n");
+            //                        }
 
-                        if (response == "O") { break; }
-                        if (response == "X") { return; }
-                    }
-                }
-                if (isUser == "N")
-                {
+            //                        if (response == "D") 
+            //                        {
+
+            //                        }
+
+            //                        if (response == "X") { break;}
+            //                    }
+            //                }
+
+            //            if (response == "O") { break; }
+            //            if (response == "X") { return; }
+            //        }
+            //    }
+            //    if (isUser == "N")
+            //    {
                    
-                }
+            //    }
 
                 p.InsertAutor(new Autor("Stjepan", "URLnn", "Osijek1", 11023));
                 p.InsertAutor(new Autor("Stjepan", "URLn", "Osijek3", 203));
                 p.InsertAutor(new Autor("Stjepann", "URLn", "Osijek3", 30));
                 p.InsertAutor(new Autor("Stjepann", "URLn", "Osijek4", 10232));
 
-                Autor autor = new Autor();
-                autor.Ime = "Stjepann";
-                List<Autor> autors = p.SelectAutor(autor, 1);
+                //Autor autor = new Autor();
+                //autor.Ime = "Stjepann";
+                //List<Autor> autors = p.SelectAutor(autor, 1);
 
-                foreach (Autor a in autors)
-                {
-                    System.Console.WriteLine(a.Ime + " " + a.Url + " " + a.Adresa + " " + a.IdAutora);
-                }
+                //foreach (Autor a in autors)
+                //{
+                //    System.Console.WriteLine(a.Ime + " " + a.Url + " " + a.Adresa + " " + a.IdAutora);
+                //}
 
                 //p.InsertIzdavac(new Izdavac("Alfa", "URL", "Zagreb", 2));
                 //p.InsertSkladiste(new Skladiste(70, "Velka Gorca"));
@@ -115,7 +125,17 @@ namespace BookStore
                 //{
                 //    Console.WriteLine(element.Ime);
                 //}
-            }
+            //}
+        }
+
+        private static void initialValues()
+        {
+            Posrednik p = new Posrednik();
+            p.InsertAutor(new Autor("Stipe", "URLnn", "Osijek1", 10));
+            p.InsertAutor(new Autor("Joka", "URL", "Osijek2", 20));
+            p.InsertAutor(new Autor("Karlo", "URLnn", "Osijek3", 30));
+            p.InsertAutor(new Autor("George", "URLnn", "Osijek1", 40));
+            p.InsertAutor(new Autor("Pero", "URLnn", "Osijek1", 50));
         }
     }
 }
