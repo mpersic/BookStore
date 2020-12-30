@@ -7,125 +7,219 @@ namespace BookStore
 {
     class Program
     {
+        
         static void Main(string[] args)
         {
             //initialValues();
             Posrednik p = new Posrednik();
+            //p.DeleteAutor(10232);
+            //p.InsertIzdavac(new Izdavac("Skolska knjiga", "URL", "Zagreb", 19));
+            //p.InsertSkladiste(new Skladiste(42, "Velika Gorica"));
+            //p.InsertAutor(new Autor("Suzanne Collins", "URL","Amerika",101));
+            //p.InsertKnjiga(new Knjiga(20,"Igre Gladi1",2015,42,19,101,17));
+            //p.InsertKnjiga(new Knjiga(21, "Igre Gladi2", 2015, 42, 19, 101, 17));
+            //p.InsertKnjiga(new Knjiga(23, "Igre Gladi3", 2015, 42, 19, 101, 17));
+            //p.IspisKnjigaAutora(101);
+            //p.InsertKupac(new Kupac(17, "Slatina","", "pero.persic@gmail.com", "Pero"));
+            //p.InsertKosarica(new Kosarica(14, 17));
+            
+            //p.DeleteIzdavac(7);
 
-            //while (true) {
+            List<string> mainMenu = new List<string>();
+            mainMenu.Add("Odaberite radnju :");
+            mainMenu.Add("(1) Unesi u bazu");
+            mainMenu.Add("(2) Obrisi iz baze");
+            mainMenu.Add("(3) Ispisi iz baze");
+            mainMenu.Add("(4) Ubaci u kosaricu");
+            mainMenu.Add("(5) Izbaci iz kosarice");
+            mainMenu.Add("(9) Izađi iz programa");
 
-            //    Console.WriteLine("Dobrodošli u online knjižaru!\n\nJeste li korisnik? (D/N)\n  Odaberite X za izlaz. (X)");
-            //    string isUser = Console.ReadLine();
+            string submenu1title = "Odaberite gdje unijeti :";
+            string submenu2title = "Odaberite gdje obrisati :";
+            string submenu3title = "Odaberite sto ispisati :";
+            string submenu4title = "Unesite podatke onoga za ubaciti (IDKupca, IDKosarice, ISBN) :";
+            string submenu5title = "Unesite podatke onoga za izbaciti (IDKupca, IDKosarice, ISBN) :";
 
-            //    if (isUser == "D")
-            //    {
-            //        Console.WriteLine("IdKupca: ");
-            //        //učitavanje
-            //        Console.WriteLine("\nAdresa: ");
-            //        //
-            //        Console.WriteLine("\nBroj mobitela: ");
-            //        //
-            //        Console.WriteLine("\nEmail: ");
-            //        //
-            //        Console.WriteLine("\nIme i prezime: ");
-            //        //
-            //        //ispis svih knjiga
+            List<string> names = new List<string>();
+            names.Add("(1) Autor");
+            names.Add("(2) Izdavac");
+            names.Add("(3) Knjiga");
+            names.Add("(4) Kosarica");
+            names.Add("(5) Kupac");
+            names.Add("(6) SeNalazi");
+            names.Add("(7) Skladiste");
+            names.Add("(9) Izađi iz izbornika");
 
-            //        string izbornik = "Izbornik:\n     -Prikaži košaricu (K)\n     -Filter (F)\n     -Odjava (O)\n     -Izađi iz programa (X)\n";
-            //        string filter = "Filter:\n     -Ime knjige (K)\n     -Ime autora (A)\n     -Ime izdavača (I)\n     -Godina izadnja (G)\n     -Za višestruki izbor unesite kombinaciju slova (npr. K A I )\n\n     -Dodaj u košaricu (D)\n     -Izađi iz filtera (X)\n";
 
-            //        Console.WriteLine(izbornik);
-            //        string response = Console.ReadLine();
-            //        while (true)
-            //        {   
-            //            if (response == "K")
-            //            {
-            //                Console.WriteLine("Košarica:\n");
-            //                // Uzet knjige od kosarice i ispisati
-            //                Console.WriteLine("Ukloni iz košarice (U)\n");
-            //                string response = Console.ReadLine();
-            //                if (response == "D")
-            //                {
-            //                    // 
-            //                }
-            //                else {
-            //                    Console.WriteLine(izbornik);
-            //                }
-            //            }
 
-            //            if (response == "U")
-            //            {
-            //                // Ukloni knjigu na rednom broju ispisa 
-            //            }
+            Console.WriteLine("Dobrodošli u online knjižaru!\n");
 
-            //            if (response == "F")
-            //                while (true)
-            //                {
-            //                    {
-            //                        Console.WriteLine(filter);
-            //                        response = Console.ReadLine();
+            bool run = true;
+            while (run)
+            {
+                printMenu(mainMenu);
+                int option = readCorrectInput(1, 4);
+                
+                int ID;
+                int choice;
+                switch (option)
+                {
+                    case 1:
+                        // Insert into database
+                        Console.WriteLine(submenu1title);
+                        printMenu(names);
+                        choice = readCorrectInput(1, 7);
 
-            //                        if (response.Contains(" K "))
-            //                        {
-            //                            Console.WriteLine("Ime knjige: \n");
-            //                        }
+                        // TODO logic
+                        break;
+                    case 2:
+                        // Remove from database
+                        Console.WriteLine(submenu2title);
+                        printMenu(names);
+                        choice = readCorrectInput(1, 7);
 
-            //                        if (response.Contains(" A "))
-            //                        {
-            //                            Console.WriteLine("Ima autora: \n");
-            //                        }
+                        switch (choice) {
+                            case 1:
+                                Console.WriteLine("Unesi ID autora za obrisati");
+                                ID = readCorrectInput(0, 2147483647);
+                                p.DeleteAutor(ID);
+                                break;
+                            case 2:
+                                Console.WriteLine("Unesi ID izdavaca za obrisati");
+                                ID = readCorrectInput(0, 2147483647);
+                                p.DeleteIzdavac(ID);
+                                break;
+                            case 3:
+                                Console.WriteLine("Unesi ISBN knjige za obrisati");
+                                ID = readCorrectInput(0, 2147483647);
+                                p.DeleteKnjiga(ID);
+                                break;
+                            case 4:
+                                Console.WriteLine("Unesi ID kosarice za obrisati");
+                                ID = readCorrectInput(0, 2147483647);
+                                p.DeleteKosarica(ID);
+                                break;
+                            case 5:
+                                Console.WriteLine("Unesi ID kupca za obrisati");
+                                ID = readCorrectInput(0, 2147483647);
+                                p.DeleteKupac(ID);
+                                break;
+                            case 6:
+                                
+                                break;
+                            case 7:
+                                Console.WriteLine("Unesi ID skladista za obrisati");
+                                ID = readCorrectInput(0, 2147483647);
+                                p.DeleteSkladiste(ID);
+                                break;
+                            case 9:
+                                break;
+                        }
 
-            //                        if (response.Contains("I"))
-            //                        {
-            //                            Console.WriteLine("Ime izdavača: \n");
-            //                        }
+                        break;
+                    case 3:
+                        // Print from database
+                        Console.WriteLine(submenu3title);
+                        printMenu(names);
+                        choice = readCorrectInput(1, 7);
 
-            //                        if (response.Contains("G"))
-            //                        {
-            //                            Console.WriteLine("Godina izdanja: \n");
-            //                        }
+                        switch (choice)
+                        {
+                            case 1:
+                                p.PrintAutors();
+                                break;
+                            case 2:
+                                p.PrintIzdavac();
+                                break;
+                            case 3:
+                                p.PrintKnjiga();
+                                break;
+                            case 4:
+                                p.PrintKosarica();
+                                break;
+                            case 5:
+                                p.PrintKupac();
+                                break;
+                            case 6:
+                                p.PrintSeNalazi();
+                                break;
+                            case 7:
+                                p.PrintSkladiste();
+                                break;
+                            case 9:
+                                break;
+                        }
 
-            //                        if (response == "D") 
-            //                        {
+                        break;
+                    case 4:
+                        // Ubaci u kosaricu
 
-            //                        }
+                        Console.WriteLine(submenu4title);
 
-            //                        if (response == "X") { break;}
-            //                    }
-            //                }
+                        int IDKupca = readCorrectInput(0, 2147483647);
+                        int IDKosarice = readCorrectInput(0, 2147483647);
+                        int ISBN = readCorrectInput(0, 2147483647);
 
-            //            if (response == "O") { break; }
-            //            if (response == "X") { return; }
-            //        }
-            //    }
-            //    if (isUser == "N")
-            //    {
-                   
-            //    }
+                        insertUKosaricu(IDKupca,  IDKosarice,  ISBN);
+                        break;
+                    case 5:
+                        // Izbaci iz kosarice
 
-                p.InsertAutor(new Autor("Stjepan", "URLnn", "Osijek1", 11023));
-                p.InsertAutor(new Autor("Stjepan", "URLn", "Osijek3", 203));
-                p.InsertAutor(new Autor("Stjepann", "URLn", "Osijek3", 30));
-                p.InsertAutor(new Autor("Stjepann", "URLn", "Osijek4", 10232));
+                        Console.WriteLine(submenu5title);
 
-                //Autor autor = new Autor();
-                //autor.Ime = "Stjepann";
-                //List<Autor> autors = p.SelectAutor(autor, 1);
+                        int IDKupca = readCorrectInput(0, 2147483647);
+                        int IDKosarice = readCorrectInput(0, 2147483647);
+                        int ISBN = readCorrectInput(0, 2147483647);
 
-                //foreach (Autor a in autors)
-                //{
-                //    System.Console.WriteLine(a.Ime + " " + a.Url + " " + a.Adresa + " " + a.IdAutora);
-                //}
+                        //insertUKosaricu(IDKupca, IDKosarice, ISBN);
+                        break;
+                    case 9:
+                        // Quit
+                        run = false;
+                        break;
+                }
+            }
+        }
 
-                //p.InsertIzdavac(new Izdavac("Alfa", "URL", "Zagreb", 2));
-                //p.InsertSkladiste(new Skladiste(70, "Velka Gorca"));
-                //p.InsertKnjiga(new Knjiga(287, "LOTR", 2013, 70, 2, 9, 1));
-                // p.InsertSeNalazi(new SeNalazi(287,5));
-                //foreach (Autor element in listaAutora)
-                //{
-                //    Console.WriteLine(element.Ime);
-                //}
-            //}
+        private static void insertUKosaricu(int IDKupca,int IDKosarice, int ISBN)
+        {
+            Posrednik posrednik = new Posrednik();
+            posrednik.InsertKosarica(new Kosarica(IDKosarice, IDKupca));
+            posrednik.InsertSeNalazi(new SeNalazi(ISBN, IDKosarice));
+            posrednik.UpdateKnjiga(ISBN);
+        }
+
+        private static int readCorrectInput(int lowerBoud, int upperBound)
+        { 
+            int option = 0;
+            bool validChoice = false;
+            while (!validChoice)
+            {
+                string choice = Console.ReadLine();
+                validChoice = Int32.TryParse(choice, out option);
+                if (validChoice)
+                {
+                    if (option < lowerBoud || option > upperBound)
+                    {
+                        Console.WriteLine("Ulaz nije u pravom rasponu, pokusajte ponovo");
+                        validChoice = false;
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Ulaz nije pravog oblika, pokusajte ponovo");
+                }
+            }
+
+            return option;
+        }
+
+        private static void printMenu(List<string> items)
+        {
+            for (int i = 0; i < items.Count; i++)
+            {
+                Console.WriteLine(items[i] + "\n");
+            }
         }
 
         private static void initialValues()
@@ -137,5 +231,6 @@ namespace BookStore
             p.InsertAutor(new Autor("George", "URLnn", "Osijek1", 40));
             p.InsertAutor(new Autor("Pero", "URLnn", "Osijek1", 50));
         }
+
     }
 }

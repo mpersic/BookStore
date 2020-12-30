@@ -26,6 +26,8 @@ namespace Session
             ConnectToDatabase();
         }
 
+
+
         public void InsertAutor(Autor autor)
         {
             try
@@ -144,7 +146,7 @@ namespace Session
         {
             try
             {
-                string cmdText = "INSERT INTO dbo.Kupac(IDKupca,Adresa,BrojMobitela,Email,Ime) VALUES(@id,@adresa,@brojMobitela,email,ime)";
+                string cmdText = "INSERT INTO dbo.Kupac(IDKupca,Adresa,BrojMobitela,Email,Ime) VALUES(@id,@adresa,@brojMobitela,@email,@ime)";
                 SqlCommand cmd = new SqlCommand(cmdText, connection);
                 cmd.Parameters.AddWithValue("@id", kupac.IdKupca);
                 cmd.Parameters.AddWithValue("@adresa", kupac.Adresa);
@@ -178,7 +180,7 @@ namespace Session
                 cmd.Parameters.AddWithValue("@godina", knjiga.Godina);
                 cmd.Parameters.AddWithValue("@idSkladista", knjiga.IdSkladista);
                 cmd.Parameters.AddWithValue("@idIzdavaca", knjiga.IdIzdavaca);
-                cmd.Parameters.AddWithValue("@idAutora",knjiga.IdAutora);
+                cmd.Parameters.AddWithValue("@idAutora", knjiga.IdAutora);
                 connection.Open();
                 cmd.ExecuteNonQuery();
             }
@@ -193,117 +195,242 @@ namespace Session
             }
         }
 
-        public List<Autor> SelectAutor(Autor autor, int autorDataSelector)
+
+
+        public void PrintAutors()
         {
-            List<Autor> listaAutora = new List<Autor>();
-            try
+            using (SqlCommand command = new SqlCommand("select * from Autor", connection))
             {
-                string text = "SELECT * FROM dbo.Autor";
-
-                bool addAND = false;
-                if ((autorDataSelector & 1) > 0)
-                {
-                    text += "WHERE Autor.Ime = '" + autor.Ime + "'";
-                    addAND = true;
-                }
-                if ((autorDataSelector & 2) > 0)
-                {
-                    text += (addAND ? " AND " : " ") + "WHERE Autor.AutorUrl = '" + autor.Url + "'";
-                    addAND = true;
-                }
-                if ((autorDataSelector & 4) > 0)
-                {
-                    text += (addAND ? " AND " : " ") + "WHERE Autor.Adresa = '" + autor.Adresa + "'";
-                    addAND = true;
-                }
-                if ((autorDataSelector & 8) > 0)
-                {
-                    text += (addAND ? " AND " : " ") + "WHERE Autor.ID = '" + autor.IdAutora + "'";
-                }
-
-                SqlCommand cmd = new SqlCommand(text, connection);
                 connection.Open();
-
-                SqlDataReader reader = cmd.ExecuteReader();
-
-                while (reader.Read())
+                using (SqlDataReader reader = command.ExecuteReader())
                 {
-                    Autor a = new Autor();
-                    a.Ime = reader["Ime"].ToString();
-                    a.Url = reader["AutorUrl"].ToString();
-                    a.Adresa = reader["Adresa"].ToString();
-                    a.IdAutora = Int32.Parse(reader["ID"].ToString());
-                    listaAutora.Add(a);
+                    while (reader.Read())
+                    {
+                        Console.Write(reader["ID"].ToString() + "\t");
+                        Console.Write(reader["Ime"].ToString() + "\t");
+                        Console.Write(reader["AutorUrl"].ToString() + "\t");
+                        Console.Write(reader["Adresa"].ToString() + "\n");
+                    }
                 }
-                return listaAutora;
+                connection.Close();
             }
-            catch (Exception)
+        }
+
+        public void PrintIzdavac()
+        {
+            using (SqlCommand command = new SqlCommand("select * from Izdavac", connection))
             {
-                throw;
-            }
-            finally
-            {
-                if (connection != null)
+                connection.Open();
+                using (SqlDataReader reader = command.ExecuteReader())
                 {
-                    connection.Close();
+                    while (reader.Read())
+                    {
+                        Console.Write(reader["ID"].ToString() + "\t");
+                        Console.Write(reader["Ime"].ToString() + "\t");
+                        Console.Write(reader["IzdavacUrl"].ToString() + "\t");
+                        Console.Write(reader["Adresa"].ToString() + "\n");
+                    }
+                }
+                connection.Close();
+            }
+        }
+
+        public void PrintSkladiste()
+        {
+            using (SqlCommand command = new SqlCommand("select * from Skladiste", connection))
+            {
+                connection.Open();
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        Console.Write(reader["IDSkladiste"].ToString() + "\t");
+                        Console.Write(reader["Adresa"].ToString() + "\n");
+                    }
+                }
+                connection.Close();
+            }
+        }
+
+        public void PrintKupac()
+        {
+            using (SqlCommand command = new SqlCommand("select * from Kupac", connection))
+            {
+                connection.Open();
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        Console.Write(reader["IDKupca"].ToString() + "\t");
+                        Console.Write(reader["Adresa"].ToString() + "\t");
+                        Console.Write(reader["BrojMobitela"].ToString() + "\t");
+                        Console.Write(reader["Email"].ToString() + "\t");
+                        Console.Write(reader["Ime"].ToString() + "\n");
+                    }
+                }
+                connection.Close();
+            }
+        }
+
+        public void PrintKosarica()
+        {
+            using (SqlCommand command = new SqlCommand("select * from Kosarica", connection))
+            {
+                connection.Open();
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        Console.Write(reader["IDKosarica"].ToString() + "\t");
+                        Console.Write(reader["IDKupca"].ToString() + "\n");
+                    }
+                }
+                connection.Close();
+            }
+        }
+
+        public void PrintKnjiga()
+        {
+            using (SqlCommand command = new SqlCommand("select * from Knjiga", connection))
+            {
+                connection.Open();
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        Console.Write(reader["ISBN"].ToString() + "\t");
+                        Console.Write(reader["Ime"].ToString() + "\t");
+                        Console.Write(reader["BrojDostupnih"].ToString() + "\t");
+                        Console.Write(reader["Godina"].ToString() + "\t");
+                        Console.Write(reader["IDSkladista"].ToString() + "\t");
+                        Console.Write(reader["IDIzdavaca"].ToString() + "\t");
+                        Console.Write(reader["IDAutora"].ToString() + "\n");
+                    }
+                }
+                connection.Close();
+            }
+        }
+
+        public void PrintSeNalazi()
+        {
+            using (SqlCommand command = new SqlCommand("select * from SeNalazi", connection))
+            {
+                connection.Open();
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        Console.Write(reader["IDKosarice"].ToString() + "\t");
+                        Console.Write(reader["ISBN"].ToString() + "\n");
+                    }
+                }
+                connection.Close();
+            }
+        }
+
+        public void DeleteAutor(int ID)
+        {
+            connection.Open();
+            SqlCommand command = new SqlCommand("DELETE FROM Autor WHERE Autor.ID= '" + ID + "'", connection);
+            command.ExecuteNonQuery();
+            connection.Close();
+        }
+
+        public void DeleteIzdavac(int ID)
+        {
+            connection.Open();
+            SqlCommand command = new SqlCommand("DELETE FROM Izdavac WHERE Izdavac.ID = '" + ID + "'", connection);
+            command.ExecuteNonQuery();
+            connection.Close();
+        }
+
+        public void DeleteKnjiga(int ISBN)
+        {
+            connection.Open();
+            SqlCommand command = new SqlCommand("DELETE FROM knjiga WHERE Knjiga.ISBN = '" + ISBN + "'", connection);
+            command.ExecuteNonQuery();
+            connection.Close();
+        }
+
+        public void DeleteKosarica(int ID)
+        {
+            connection.Open();
+            SqlCommand command = new SqlCommand("DELETE FROM Kosarica WHERE Kosarica.IDKosarice = '" + ID + "'", connection);
+            command.ExecuteNonQuery();
+            connection.Close();
+        }
+
+        public void DeleteKupac(int ID)
+        {
+            connection.Open();
+            SqlCommand command = new SqlCommand("DELETE FROM Kupac WHERE Kupac.IDKupca = '" + ID + "'", connection);
+            command.ExecuteNonQuery();
+            connection.Close();
+        }
+
+        public void DeleteSkladiste(int ID)
+        {
+            connection.Open();
+            SqlCommand command = new SqlCommand("DELETE FROM Skladiste WHERE Skladiste.IDSkladiste = '" + ID + "'", connection);
+            command.ExecuteNonQuery();
+            connection.Close();
+        }
+
+        public void DeleteSeNalazi(int IDKosarice, int ISBN)
+        {
+            connection.Open();
+            SqlCommand command = new SqlCommand("DELETE FROM SeNalazi WHERE SeNalazi.IDKosarice = '" + IDKosarice + "' AND SeNalazi.ISBN = '" + ISBN + "'", connection);
+            command.ExecuteNonQuery();
+            connection.Close();
+        }
+
+        public void IspisKnjigaAutora(int AutorID)
+        {
+            using (SqlCommand command = new SqlCommand("SELECT * from Knjiga WHERE IDAutora= '" + AutorID + "'", connection))
+            {
+                connection.Open();
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        Console.Write(reader["ISBN"].ToString() + "\t");
+                        Console.Write(reader["Ime"].ToString() + "\t");
+                        Console.Write(reader["BrojDostupnih"].ToString() + "\t");
+                        Console.Write(reader["Godina"].ToString() + "\t");
+                        Console.Write(reader["IDSkladista"].ToString() + "\t");
+                        Console.Write(reader["IDIzdavaca"].ToString() + "\t");
+                        Console.Write(reader["IDAutora"].ToString() + "\n");
+                    }
                 }
             }
         }
 
-        public void DeleteAutor(Autor autor)
+        public void UpdateKnjiga(int ISBN)
         {
-            connection.Open();
-            SqlCommand command = new SqlCommand("DELETE FROM Autor WHERE Autor.ID = '" + autor.IdAutora + "'", connection);
-            command.ExecuteNonQuery();
-            connection.Close();
-        }
-
-        public void DeleteIzdavac(Izdavac izdavac)
-        {
-            connection.Open();
-            SqlCommand command = new SqlCommand("DELETE FROM Izdavac WHERE Izdavac.ID = '" + izdavac.IdIzdavaca + "'", connection);
-            command.ExecuteNonQuery();
-            connection.Close();
-        }
-
-        public void DeleteKnjiga(Knjiga knjiga)
-        {
-            connection.Open();
-            SqlCommand command = new SqlCommand("DELETE FROM knjiga WHERE Knjiga.ISBN = '" + knjiga.Isbn + "'", connection);
-            command.ExecuteNonQuery();
-            connection.Close();
-        }
-
-        public void DeleteKosarica(Kosarica kosarica)
-        {
-            connection.Open();
-            SqlCommand command = new SqlCommand("DELETE FROM Kosarica WHERE Kosarica.IDKosarice = '" + kosarica.IdKosarice + "'", connection);
-            command.ExecuteNonQuery();
-            connection.Close();
-        }
-
-        public void DeleteKupac(Kupac kupac)
-        {
-            connection.Open();
-            SqlCommand command = new SqlCommand("DELETE FROM Kupac WHERE Kupac.IDKupca = '" + kupac.IdKupca + "'", connection);
-            command.ExecuteNonQuery();
-            connection.Close();
-        }
-
-        public void DeleteSkladiste(Skladiste skladiste)
-        {
-            connection.Open();
-            SqlCommand command = new SqlCommand("DELETE FROM Skladiste WHERE Skladiste.IDSkladiste = '" + skladiste.IDSkladiste + "'", connection);
-            command.ExecuteNonQuery();
-            connection.Close();
-        }
-
-        public void DeleteSeNalazi(SeNalazi seNalazi)
-        {
-            connection.Open();
-            SqlCommand command = new SqlCommand("DELETE FROM SeNalazi WHERE SeNalazi.IDKosarice = '" + seNalazi.IdKosarice + "' AND SeNalazi.ISBN = '" + seNalazi.Isbn + "'", connection);
-            command.ExecuteNonQuery();
-            connection.Close();
+            bool isAvailable = true;
+            using (SqlCommand command = new SqlCommand("SELECT * FROM Knjiga WHERE Knjiga.ISBN= '" + ISBN + "'", connection))
+            {
+                connection.Open();
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        if (!(Int32.Parse(reader["BrojDostupnih"].ToString()) >= 1))
+                        {
+                            isAvailable = false;
+                        }
+                    }
+                }
+                command.ExecuteNonQuery();
+                if (isAvailable)
+                {
+                    SqlCommand newCommand = new SqlCommand("UPDATE Knjiga SET Knjiga.BrojDostupnih=Knjiga.BrojDostupnih-1 WHERE Knjiga.ISBN= '" + ISBN + "'", connection);
+                    newCommand.ExecuteNonQuery();
+                }
+                else
+                    Console.WriteLine("Knjiga trenutno nije dostupna.");
+                connection.Close();
+            }
         }
     }
 }
