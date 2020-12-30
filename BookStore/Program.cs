@@ -10,20 +10,9 @@ namespace BookStore
         
         static void Main(string[] args)
         {
-            //initialValues();
             Posrednik p = new Posrednik();
-            //p.DeleteAutor(10232);
-            //p.InsertIzdavac(new Izdavac("Skolska knjiga", "URL", "Zagreb", 19));
-            //p.InsertSkladiste(new Skladiste(42, "Velika Gorica"));
-            //p.InsertAutor(new Autor("Suzanne Collins", "URL","Amerika",101));
-            //p.InsertKnjiga(new Knjiga(20,"Igre Gladi1",2015,42,19,101,17));
-            //p.InsertKnjiga(new Knjiga(21, "Igre Gladi2", 2015, 42, 19, 101, 17));
-            //p.InsertKnjiga(new Knjiga(23, "Igre Gladi3", 2015, 42, 19, 101, 17));
-            //p.IspisKnjigaAutora(101);
-            //p.InsertKupac(new Kupac(17, "Slatina","", "pero.persic@gmail.com", "Pero"));
-            //p.InsertKosarica(new Kosarica(14, 17));
-            
-            //p.DeleteIzdavac(7);
+            setInitialValues();
+
 
             List<string> mainMenu = new List<string>();
             mainMenu.Add("Odaberite radnju :");
@@ -31,14 +20,13 @@ namespace BookStore
             mainMenu.Add("(2) Obrisi iz baze");
             mainMenu.Add("(3) Ispisi iz baze");
             mainMenu.Add("(4) Ubaci u kosaricu");
-            mainMenu.Add("(5) Izbaci iz kosarice");
+            mainMenu.Add("(5) Ispisi knjige autora");
             mainMenu.Add("(9) Izađi iz programa");
 
             string submenu1title = "Odaberite gdje unijeti :";
             string submenu2title = "Odaberite gdje obrisati :";
             string submenu3title = "Odaberite sto ispisati :";
-            string submenu4title = "Unesite podatke onoga za ubaciti (IDKupca, IDKosarice, ISBN) :";
-            string submenu5title = "Unesite podatke onoga za izbaciti (IDKupca, IDKosarice, ISBN) :";
+            string submenu4title = "Unesite podatke (IDKupca, IDKosarice, ISBN) :";
 
             List<string> names = new List<string>();
             names.Add("(1) Autor");
@@ -58,8 +46,11 @@ namespace BookStore
             while (run)
             {
                 printMenu(mainMenu);
-                int option = readCorrectInput(1, 4);
-                
+                int option = readCorrectInput(1, mainMenu.Count - 2);
+
+                int IDKupca;
+                int IDKosarice;
+                int ISBN;
                 int ID;
                 int choice;
                 switch (option)
@@ -68,15 +59,97 @@ namespace BookStore
                         // Insert into database
                         Console.WriteLine(submenu1title);
                         printMenu(names);
-                        choice = readCorrectInput(1, 7);
+                        choice = readCorrectInput(1, names.Count);
 
-                        // TODO logic
+                        switch (choice)
+                        {
+                            case 1:
+                                Console.WriteLine("Unesite podatke (ID, ime, URL, adresa)");
+                                int authorIDd = Int32.Parse(Console.ReadLine());
+                                string authorIme = Console.ReadLine();
+                                string authorURL = Console.ReadLine();
+                                string authorAdresa = Console.ReadLine();
+
+                                p.InsertAutor(new Autor(authorIme, authorURL, authorAdresa, authorIDd));
+
+                                break;
+                            case 2:
+                                Console.WriteLine("Unesite podatke (ID, ime, URL, adresa)");
+
+                                int izdavacID = Int32.Parse(Console.ReadLine());
+                                string izdavacIme = Console.ReadLine();
+                                string izdavacURL = Console.ReadLine();
+                                string izdavacAdresa = Console.ReadLine();
+
+                                p.InsertIzdavac(new Izdavac(izdavacIme, izdavacURL, izdavacAdresa, izdavacID));
+
+                                break;
+                            case 7:
+
+                                Console.WriteLine("Unesite podatke (ID, adresa)");
+
+                                int skladisteID = Int32.Parse(Console.ReadLine());
+                                string skladisteAdresa = Console.ReadLine();
+
+                                p.InsertSkladiste(new Skladiste(skladisteID, skladisteAdresa));
+
+                                break;
+                            case 6:
+
+                                Console.WriteLine("Unesite podatke (ID, ISBN)");
+
+                                int senalaziID = Int32.Parse(Console.ReadLine());
+                                int senalaziISBN = Int32.Parse(Console.ReadLine());
+
+                                p.InsertSeNalazi(new SeNalazi(senalaziID, senalaziISBN));
+
+                                break;
+                            case 4:
+
+                                Console.WriteLine("Unesite podatke (IDKosarice, IDKupca)");
+
+                                int kosaricaIDkosara = Int32.Parse(Console.ReadLine());
+                                int kosaricaIDkupac = Int32.Parse(Console.ReadLine());
+
+                                p.InsertKosarica(new Kosarica(kosaricaIDkosara, kosaricaIDkupac));
+
+                                break;
+                            case 5:
+
+                                Console.WriteLine("Unesite podatke (ID, ime, adresa, broj mobitela, email)");
+
+                                int kupacID = Int32.Parse(Console.ReadLine());
+                                string kupacIme = Console.ReadLine();
+                                string kupacAdresa = Console.ReadLine();
+                                string kupacBroj = Console.ReadLine();
+                                string kupacEmail = Console.ReadLine();
+
+                                p.InsertKupac(new Kupac(kupacID, kupacAdresa, kupacBroj, kupacEmail, kupacIme));
+
+                                break;
+                            case 3:
+
+                                Console.WriteLine("Unesite podatke (ISBN, ime, broj dostupnih, godina, IDskladista, IDizdavaca, IDautora)");
+
+                                int knjigaISBN = Int32.Parse(Console.ReadLine());
+                                string knjigaIme = Console.ReadLine();
+                                int knjigaDostupnost = Int32.Parse(Console.ReadLine());
+                                int knjigaGodina = Int32.Parse(Console.ReadLine());
+                                int knjigaIDS = Int32.Parse(Console.ReadLine());
+                                int knjigaIDI = Int32.Parse(Console.ReadLine());
+                                int knjigaIDA = Int32.Parse(Console.ReadLine());
+
+                                p.InsertKnjiga(new Knjiga(knjigaISBN, knjigaIme, knjigaGodina,  knjigaIDS,  knjigaIDI,  knjigaIDA,  knjigaDostupnost));
+
+                                break;
+                        }
+
                         break;
                     case 2:
                         // Remove from database
                         Console.WriteLine(submenu2title);
                         printMenu(names);
-                        choice = readCorrectInput(1, 7);
+                        choice = readCorrectInput(1, names.Count);
 
                         switch (choice) {
                             case 1:
@@ -105,7 +178,6 @@ namespace BookStore
                                 p.DeleteKupac(ID);
                                 break;
                             case 6:
-                                
                                 break;
                             case 7:
                                 Console.WriteLine("Unesi ID skladista za obrisati");
@@ -121,7 +193,7 @@ namespace BookStore
                         // Print from database
                         Console.WriteLine(submenu3title);
                         printMenu(names);
-                        choice = readCorrectInput(1, 7);
+                        choice = readCorrectInput(1, names.Count);
 
                         switch (choice)
                         {
@@ -156,22 +228,20 @@ namespace BookStore
 
                         Console.WriteLine(submenu4title);
 
-                        int IDKupca = readCorrectInput(0, 2147483647);
-                        int IDKosarice = readCorrectInput(0, 2147483647);
-                        int ISBN = readCorrectInput(0, 2147483647);
+                        IDKupca = readCorrectInput(0, 2147483647);
+                        IDKosarice = readCorrectInput(0, 2147483647);
+                        ISBN = readCorrectInput(0, 2147483647);
 
                         insertUKosaricu(IDKupca,  IDKosarice,  ISBN);
                         break;
                     case 5:
-                        // Izbaci iz kosarice
+                        // Ispisi knjige autora x
 
-                        Console.WriteLine(submenu5title);
+                        Console.WriteLine("Unesi ID autora");
+                        int authorID = readCorrectInput(0, 2147483647);
 
-                        int IDKupca = readCorrectInput(0, 2147483647);
-                        int IDKosarice = readCorrectInput(0, 2147483647);
-                        int ISBN = readCorrectInput(0, 2147483647);
+                        p.IspisKnjigaAutora(authorID);
 
-                        //insertUKosaricu(IDKupca, IDKosarice, ISBN);
                         break;
                     case 9:
                         // Quit
@@ -222,15 +292,25 @@ namespace BookStore
             }
         }
 
-        private static void initialValues()
+        private static void setInitialValues()
         {
             Posrednik p = new Posrednik();
-            p.InsertAutor(new Autor("Stipe", "URLnn", "Osijek1", 10));
-            p.InsertAutor(new Autor("Joka", "URL", "Osijek2", 20));
-            p.InsertAutor(new Autor("Karlo", "URLnn", "Osijek3", 30));
-            p.InsertAutor(new Autor("George", "URLnn", "Osijek1", 40));
-            p.InsertAutor(new Autor("Pero", "URLnn", "Osijek1", 50));
-        }
 
+            p.InsertSkladiste(new Skladiste(1, "Jagiceva 5"));
+            p.InsertSkladiste(new Skladiste(1, "Nazorova 13"));
+
+            p.InsertAutor(new Autor("Fyodor Dostoevsky", "https://en.wikipedia.org/wiki/Fyodor_Dostoevsky", "St. Petersburg", 1));
+            p.InsertAutor(new Autor("Ranko Marinković", "https://en.wikipedia.org/wiki/Ranko_Marinković", "Zagreb", 2));
+
+            p.InsertIzdavac(new Izdavac("Atlas Press", "https://en.wikipedia.org/wiki/Atlas_Press", "London", 1));
+            p.InsertIzdavac(new Izdavac("Capstone Publishers", "https://en.wikipedia.org/wiki/Capstone_Publishers", "Mankato, Minnesota", 2));
+
+            p.InsertKnjiga(new Knjiga(1, "Poor Folk", 1846, 1, 1, 1, 150));
+            p.InsertKnjiga(new Knjiga(1, "Crime and Punishment", 1866, 1, 2, 1, 350));
+            p.InsertKnjiga(new Knjiga(1, "The Idiot", 1868, 1, 2, 1, 50));
+            p.InsertKnjiga(new Knjiga(1, "Kiklop", 1965, 1, 2, 2, 70));
+            p.InsertKnjiga(new Knjiga(1, "Never more", 1993, 2, 1, 2, 90));
+            p.InsertKnjiga(new Knjiga(1, "Albatros ", 1939, 2, 1, 2, 20));
+        }
     }
 }
