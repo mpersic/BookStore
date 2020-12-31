@@ -296,21 +296,21 @@ namespace BookStore
         {
             Posrednik p = new Posrednik();
 
-            p.InsertSkladiste(new Skladiste(1, "Jagiceva 5"));
-            p.InsertSkladiste(new Skladiste(1, "Nazorova 13"));
+           // p.InsertSkladiste(new Skladiste(1, "Jagiceva 5"));
+           // p.InsertSkladiste(new Skladiste(2, "Nazorova 13"));
 
-            p.InsertAutor(new Autor("Fyodor Dostoevsky", "https://en.wikipedia.org/wiki/Fyodor_Dostoevsky", "St. Petersburg", 1));
-            p.InsertAutor(new Autor("Ranko Marinković", "https://en.wikipedia.org/wiki/Ranko_Marinković", "Zagreb", 2));
+           // p.InsertAutor(new Autor("Fyodor Dostoevsky", "https://en.wikipedia.org/wiki/Fyodor_Dostoevsky", "St. Petersburg", 1));
+            //p.InsertAutor(new Autor("Ranko Marinković", "https://en.wikipedia.org/wiki/Ranko_Marinković", "Zagreb", 2));
 
-            p.InsertIzdavac(new Izdavac("Atlas Press", "https://en.wikipedia.org/wiki/Atlas_Press", "London", 1));
-            p.InsertIzdavac(new Izdavac("Capstone Publishers", "https://en.wikipedia.org/wiki/Capstone_Publishers", "Mankato, Minnesota", 2));
+            //p.InsertIzdavac(new Izdavac("Atlas Press", "https://en.wikipedia.org/wiki/Atlas_Press", "London", 1));
+           // p.InsertIzdavac(new Izdavac("Capstone Publishers", "https://en.wikipedia.org/wiki/Capstone_Publishers", "Mankato, Minnesota", 2));
 
-            p.InsertKnjiga(new Knjiga(1, "Poor Folk", 1846, 1, 1, 1, 150));
-            p.InsertKnjiga(new Knjiga(1, "Crime and Punishment", 1866, 1, 2, 1, 350));
-            p.InsertKnjiga(new Knjiga(1, "The Idiot", 1868, 1, 2, 1, 50));
-            p.InsertKnjiga(new Knjiga(1, "Kiklop", 1965, 1, 2, 2, 70));
-            p.InsertKnjiga(new Knjiga(1, "Never more", 1993, 2, 1, 2, 90));
-            p.InsertKnjiga(new Knjiga(1, "Albatros ", 1939, 2, 1, 2, 20));
+            //p.InsertKnjiga(new Knjiga(1, "Poor Folk", 1846, 1, 1, 1, 150));
+            p.InsertKnjiga(new Knjiga(2, "Crime and Punishment", 1866, 1, 2, 1, 350));
+            p.InsertKnjiga(new Knjiga(3, "The Idiot", 1868, 1, 2, 1, 50));
+            p.InsertKnjiga(new Knjiga(4, "Kiklop", 1965, 1, 2, 2, 70));
+            p.InsertKnjiga(new Knjiga(5, "Never more", 1993, 2, 1, 2, 90));
+            p.InsertKnjiga(new Knjiga(6, "Albatros ", 1939, 2, 1, 2, 20));
         }
     }
 }
