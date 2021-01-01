@@ -23,8 +23,8 @@ namespace BookStore
             mainMenu.Add("(5) Ispisi knjige autora");
             mainMenu.Add("(6) Ispisi sve autore sa knjigama u zadanom skladistu");
             mainMenu.Add("(7) Ispisi broj knjiga na skladistu");
-            mainMenu.Add("(8) Ispisi broj knjiga zadanog autora");
-            mainMenu.Add("(9) Izađi iz programa");
+            mainMenu.Add("(8) Ispisi broj knjiga od zadanog autora");
+            mainMenu.Add("(19) Izađi iz programa");
 
             string submenu1title = "Odaberite gdje unijeti :";
             string submenu2title = "Odaberite gdje obrisati :";
@@ -274,7 +274,7 @@ namespace BookStore
                         p.IspisBrojaKnjigaOdAutora(autorID3);
 
                         break;
-                    case 9:
+                    case 19:
                         // Quit
                         run = false;
                         break;
