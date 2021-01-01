@@ -11,7 +11,7 @@ namespace BookStore
         static void Main(string[] args)
         {
             Posrednik p = new Posrednik();
-            setInitialValues();
+            //setInitialValues();
 
 
             List<string> mainMenu = new List<string>();
@@ -21,6 +21,9 @@ namespace BookStore
             mainMenu.Add("(3) Ispisi iz baze");
             mainMenu.Add("(4) Ubaci u kosaricu");
             mainMenu.Add("(5) Ispisi knjige autora");
+            mainMenu.Add("(6) Ispisi sve autore sa knjigama u zadanom skladistu");
+            mainMenu.Add("(7) Ispisi broj knjiga na skladistu");
+            mainMenu.Add("(8) Ispisi broj knjiga zadanog autora");
             mainMenu.Add("(9) Izađi iz programa");
 
             string submenu1title = "Odaberite gdje unijeti :";
@@ -45,6 +48,7 @@ namespace BookStore
             bool run = true;
             while (run)
             {
+                Console.WriteLine();
                 printMenu(mainMenu);
                 int option = readCorrectInput(1, mainMenu.Count - 2);
 
@@ -243,6 +247,33 @@ namespace BookStore
                         p.IspisKnjigaAutora(authorID);
 
                         break;
+                    case 6:
+                        // Ispisi sve autore sa knjigama na skladistu
+
+                        Console.WriteLine("Unesi ID skladista");
+                        int skladisteID2 = readCorrectInput(0, 2147483647);
+
+                        p.IspisAutoraKnjigaSkladista(skladisteID2);
+
+                        break;
+                    case 7:
+                        // Ispisi broj knjiga na skladistu
+
+                        Console.WriteLine("Unesi ID skladista");
+                        int skladisteID3 = readCorrectInput(0, 2147483647);
+
+                        p.IspisBrojaKnjigaNaSkladistu(skladisteID3);
+
+                        break;
+                    case 8:
+                        // Ispisi broj knjiga na skladistu
+
+                        Console.WriteLine("Unesi ID autora");
+                        int autorID3 = readCorrectInput(0, 2147483647);
+
+                        p.IspisBrojaKnjigaOdAutora(autorID3);
+
+                        break;
                     case 9:
                         // Quit
                         run = false;
@@ -288,8 +319,9 @@ namespace BookStore
         {
             for (int i = 0; i < items.Count; i++)
             {
-                Console.WriteLine(items[i] + "\n");
+                Console.WriteLine(items[i]);
             }
+            Console.WriteLine();
         }
 
         private static void setInitialValues()
@@ -301,6 +333,7 @@ namespace BookStore
 
             p.InsertAutor(new Autor("Fyodor Dostoevsky", "https://en.wikipedia.org/wiki/Fyodor_Dostoevsky", "St. Petersburg", 1));
             p.InsertAutor(new Autor("Ranko Marinković", "https://en.wikipedia.org/wiki/Ranko_Marinković", "Zagreb", 2));
+            p.InsertAutor(new Autor("Izmisljenko", "https://en.wikipedia.org/wiki/Egg", "London", 3));
 
             p.InsertIzdavac(new Izdavac("Atlas Press", "https://en.wikipedia.org/wiki/Atlas_Press", "London", 1));
             p.InsertIzdavac(new Izdavac("Capstone Publishers", "https://en.wikipedia.org/wiki/Capstone_Publishers", "Mankato, Minnesota", 2));
@@ -311,6 +344,9 @@ namespace BookStore
             p.InsertKnjiga(new Knjiga(4, "Kiklop", 1965, 1, 2, 2, 70));
             p.InsertKnjiga(new Knjiga(5, "Never more", 1993, 2, 1, 2, 90));
             p.InsertKnjiga(new Knjiga(6, "Albatros ", 1939, 2, 1, 2, 20));
+
+            p.InsertKnjiga(new Knjiga(7, "Izmisljena 1", 1890, 1, 1, 3, 10));
+            p.InsertKnjiga(new Knjiga(8, "Izmisljena 2", 1891, 1, 1, 3, 20));
         }
     }
 }

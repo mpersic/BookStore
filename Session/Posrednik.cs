@@ -14,7 +14,7 @@ namespace Session
         {
             //Data Source=DESKTOP-11SDEU5\SQLEXPRESS;Initial Catalog=master;Integrated Security=True
             connStringBuilder = new SqlConnectionStringBuilder();
-            connStringBuilder.DataSource = "DESKTOP-11SDEU5";
+            connStringBuilder.DataSource = "DESKTOP-3ES45SE";
             connStringBuilder.InitialCatalog = "master";
             connStringBuilder.IntegratedSecurity = true;
 
@@ -26,7 +26,51 @@ namespace Session
             ConnectToDatabase();
         }
 
+        public void IspisAutoraKnjigaSkladista(int ID)
+        {
+            string text1 = "'" + ID + "' = Knjiga.IDSkladista";
+            string text2 = "Skladiste.IDSkladiste = '" + ID + "'";
+            string text3 = "Knjiga.IDAutora = Autor.ID";
 
+            using (SqlCommand command = new SqlCommand("SELECT DISTINCT Autor.Ime FROM Knjiga,Autor,Skladiste WHERE " + text1 + " AND " + text2 + " AND " + text3, connection))
+            {
+                connection.Open();
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        Console.WriteLine(reader["Ime"].ToString() + "\t");
+                    }
+                }
+                connection.Close();
+            }
+        }
+
+        public void IspisBrojaKnjigaNaSkladistu(int ID)
+        {
+            string text1 = "'" + ID + "' = Knjiga.IDSkladista";
+            string text2 = "Skladiste.IDSkladiste = '" + ID + "'";
+
+            using (SqlCommand command = new SqlCommand("SELECT COUNT(*) FROM Knjiga,Skladiste WHERE " + text1 + " AND " + text2, connection))
+            {
+                connection.Open();
+                Console.WriteLine(command.ExecuteScalar().ToString() + " knjiga(e)");
+                connection.Close();
+            }
+        }
+
+        public void IspisBrojaKnjigaOdAutora(int ID)
+        {
+            string text1 = "'" + ID + "' = Autor.ID";
+            string text2 = "Knjiga.IDAutora = '" + ID + "'";
+
+            using (SqlCommand command = new SqlCommand("SELECT COUNT(*) FROM Autor,Knjiga WHERE " + text1 + " AND " + text2, connection))
+            {
+                connection.Open();
+                Console.WriteLine(command.ExecuteScalar().ToString() + " knjiga(e)");
+                connection.Close();
+            }
+        }
 
         public void InsertAutor(Autor autor)
         {
@@ -402,6 +446,7 @@ namespace Session
                         Console.Write(reader["IDAutora"].ToString() + "\n");
                     }
                 }
+                connection.Close();
             }
         }
 
