@@ -48,10 +48,7 @@ namespace Session
 
         public void IspisBrojaKnjigaNaSkladistu(int ID)
         {
-            string text1 = "'" + ID + "' = Knjiga.IDSkladista";
-            string text2 = "Skladiste.IDSkladiste = '" + ID + "'";
-
-            using (SqlCommand command = new SqlCommand("SELECT COUNT(*) FROM Knjiga,Skladiste WHERE " + text1 + " AND " + text2, connection))
+            using (SqlCommand command = new SqlCommand("SELECT dbo.CountDifferentBooks(" + ID + ")", connection))
             {
                 connection.Open();
                 Console.WriteLine(command.ExecuteScalar().ToString() + " knjiga(e)");
@@ -61,10 +58,7 @@ namespace Session
 
         public void IspisBrojaKnjigaOdAutora(int ID)
         {
-            string text1 = "'" + ID + "' = Autor.ID";
-            string text2 = "Knjiga.IDAutora = '" + ID + "'";
-
-            using (SqlCommand command = new SqlCommand("SELECT COUNT(*) FROM Autor,Knjiga WHERE " + text1 + " AND " + text2, connection))
+            using (SqlCommand command = new SqlCommand("SELECT dbo.CountAuthorBooks(" + ID + ")", connection))
             {
                 connection.Open();
                 Console.WriteLine(command.ExecuteScalar().ToString() + " knjiga(e)");
@@ -76,12 +70,16 @@ namespace Session
         {
             try
             {
-                string cmdText = "INSERT INTO dbo.Autor(ID,Ime,AutorUrl,Adresa) VALUES(@id,@ime,@url,@adresa)";
-                SqlCommand cmd = new SqlCommand(cmdText, connection);
-                cmd.Parameters.AddWithValue("@id", autor.IdAutora);
-                cmd.Parameters.AddWithValue("@ime", autor.Ime);
-                cmd.Parameters.AddWithValue("@url", autor.Url);
-                cmd.Parameters.AddWithValue("@adresa", autor.Adresa);
+                //string cmdText = "INSERT INTO dbo.Autor(ID,Ime,AutorUrl,Adresa) VALUES(@id,@ime,@url,@adresa)";
+                //SqlCommand cmd = new SqlCommand(cmdText, connection);
+                //cmd.Parameters.AddWithValue("@id", autor.IdAutora);
+                //cmd.Parameters.AddWithValue("@ime", autor.Ime);
+                //cmd.Parameters.AddWithValue("@url", autor.Url);
+                //cmd.Parameters.AddWithValue("@adresa", autor.Adresa);
+
+                SqlCommand cmd = new SqlCommand("EXEC CreateAutor @ID = '" + autor.IdAutora + "', @Ime = '" + autor.Ime + "', @AutorUrl = '" + autor.Url + "', " +
+                    "@Adresa = '" + autor.Adresa + "'", connection);
+
                 connection.Open();
                 cmd.ExecuteNonQuery();
             }
@@ -100,12 +98,16 @@ namespace Session
         {
             try
             {
-                string cmdText = "INSERT INTO dbo.Izdavac(Ime,IzdavacUrl,Adresa,ID) VALUES(@ime,@url,@adresa,@id)";
-                SqlCommand cmd = new SqlCommand(cmdText, connection);
-                cmd.Parameters.AddWithValue("@ime", izdavac.Ime);
-                cmd.Parameters.AddWithValue("@url", izdavac.Url);
-                cmd.Parameters.AddWithValue("@adresa", izdavac.Adresa);
-                cmd.Parameters.AddWithValue("@id", izdavac.IdIzdavaca);
+                //string cmdText = "INSERT INTO dbo.Izdavac(Ime,IzdavacUrl,Adresa,ID) VALUES(@ime,@url,@adresa,@id)";
+                //SqlCommand cmd = new SqlCommand(cmdText, connection);
+                //cmd.Parameters.AddWithValue("@ime", izdavac.Ime);
+                //cmd.Parameters.AddWithValue("@url", izdavac.Url);
+                //cmd.Parameters.AddWithValue("@adresa", izdavac.Adresa);
+                //cmd.Parameters.AddWithValue("@id", izdavac.IdIzdavaca);
+
+                SqlCommand cmd = new SqlCommand("EXEC CreateIzdavac @ID = '" + izdavac.IdIzdavaca + "', @Ime = '" + izdavac.Ime + "', @IzdavacUrl = '" + izdavac.Url + "', " +
+                    "@Adresa = '" + izdavac.Adresa + "'", connection);
+
                 connection.Open();
                 cmd.ExecuteNonQuery();
             }
@@ -215,16 +217,20 @@ namespace Session
         {
             try
             {
-                string cmdText = "INSERT INTO dbo.Knjiga(ISBN, Ime, BrojDostupnih, Godina, IDSkladista, IDIzdavaca, IDAutora) " +
-                    "VALUES(@isbn, @ime, @brojDostupnih, @godina, @idSkladista, @idIzdavaca, @idAutora)";
-                SqlCommand cmd = new SqlCommand(cmdText, connection);
-                cmd.Parameters.AddWithValue("@isbn", knjiga.Isbn);
-                cmd.Parameters.AddWithValue("@ime", knjiga.Ime);
-                cmd.Parameters.AddWithValue("@brojDostupnih", knjiga.BrojDostupnih);
-                cmd.Parameters.AddWithValue("@godina", knjiga.Godina);
-                cmd.Parameters.AddWithValue("@idSkladista", knjiga.IdSkladista);
-                cmd.Parameters.AddWithValue("@idIzdavaca", knjiga.IdIzdavaca);
-                cmd.Parameters.AddWithValue("@idAutora", knjiga.IdAutora);
+                //string cmdText = "INSERT INTO dbo.Knjiga(ISBN, Ime, BrojDostupnih, Godina, IDSkladista, IDIzdavaca, IDAutora) " +
+                //    "VALUES(@isbn, @ime, @brojDostupnih, @godina, @idSkladista, @idIzdavaca, @idAutora)";
+                //SqlCommand cmd = new SqlCommand(cmdText, connection);
+                //cmd.Parameters.AddWithValue("@isbn", knjiga.Isbn);
+                //cmd.Parameters.AddWithValue("@ime", knjiga.Ime);
+                //cmd.Parameters.AddWithValue("@brojDostupnih", knjiga.BrojDostupnih);
+                //cmd.Parameters.AddWithValue("@godina", knjiga.Godina);
+                //cmd.Parameters.AddWithValue("@idSkladista", knjiga.IdSkladista);
+                //cmd.Parameters.AddWithValue("@idIzdavaca", knjiga.IdIzdavaca);
+                //cmd.Parameters.AddWithValue("@idAutora", knjiga.IdAutora);
+
+                SqlCommand cmd = new SqlCommand("EXEC CreateBook @isbn = '" + knjiga.Isbn + "', @ime = '" + knjiga.Ime + "', @brojDostupnih = '" + knjiga.BrojDostupnih + "', " +
+                    "@godina = '" + knjiga.Godina + "', @idSkladista = '" + knjiga.IdSkladista + "', @idIzdavaca = '" + knjiga.IdIzdavaca + "', @idAutora = '" + knjiga.IdAutora + "'", connection);
+
                 connection.Open();
                 cmd.ExecuteNonQuery();
             }

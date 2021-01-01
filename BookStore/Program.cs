@@ -13,7 +13,6 @@ namespace BookStore
             Posrednik p = new Posrednik();
             //setInitialValues();
 
-
             List<string> mainMenu = new List<string>();
             mainMenu.Add("Odaberite radnju :");
             mainMenu.Add("(1) Unesi u bazu");
@@ -50,7 +49,7 @@ namespace BookStore
             {
                 Console.WriteLine();
                 printMenu(mainMenu);
-                int option = readCorrectInput(1, mainMenu.Count - 2);
+                int option = readCorrectInput(1, 2147483647);
 
                 int IDKupca;
                 int IDKosarice;
